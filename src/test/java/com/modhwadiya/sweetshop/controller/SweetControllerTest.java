@@ -94,5 +94,27 @@ class SweetControllerTest
                 .andExpect(jsonPath("$").isArray());
     }
 
+    @Test
+    void testPurchaseSweet() throws Exception {
+        Sweet sweet = new Sweet("Purchase Sweet", "Temp", 10.0, 10);
+        String content = objectMapper.writeValueAsString(sweet);
+
+        String response = mockMvc.perform(post("/sweets")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content))
+                .andExpect(status().isCreated())
+                .andReturn().getResponse().getContentAsString();
+
+        Sweet created = objectMapper.readValue(response, Sweet.class);
+
+        String purchaseBody = "{\"quantity\": 2}";
+
+        mockMvc.perform(post("/sweets/" + created.getId() + "/purchase")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(purchaseBody))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.quantityInStock").value(8));
+    }
+
 
 }
