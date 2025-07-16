@@ -10,8 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,4 +47,24 @@ class SweetControllerTest
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }
+
+    @Test
+    void testDeleteSweet() throws Exception {
+        // First, add a sweet to delete
+        Sweet sweet = new Sweet("Delete Sweet", "Temp", 10.0, 5);
+        String content = objectMapper.writeValueAsString(sweet);
+
+        String response = mockMvc.perform(post("/sweets")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content))
+                .andExpect(status().isCreated())
+                .andReturn().getResponse().getContentAsString();
+
+        Sweet created = objectMapper.readValue(response, Sweet.class);
+
+        mockMvc.perform(delete("/sweets/" + created.getId()))
+                .andExpect(status().isOk());
+    }
+
+
 }
