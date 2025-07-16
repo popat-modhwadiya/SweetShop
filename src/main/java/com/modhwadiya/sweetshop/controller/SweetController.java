@@ -60,4 +60,28 @@ public class SweetController
         }
     }
 
+    /**
+     * Search sweets by name, category or price range.
+     * Example: /sweets/search?name=Kaju
+     * Example: /sweets/search?category=Milk-Based
+     * Example: /sweets/search?minPrice=10&maxPrice=50
+     */
+    @GetMapping("/search")
+    public ResponseEntity<List<Sweet>> searchSweets(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice) {
+
+        if (name != null) {
+            return new ResponseEntity<>(sweetService.searchByName(name), HttpStatus.OK);
+        } else if (category != null) {
+            return new ResponseEntity<>(sweetService.searchByCategory(category), HttpStatus.OK);
+        } else if (minPrice != null && maxPrice != null) {
+            return new ResponseEntity<>(sweetService.searchByPriceRange(minPrice, maxPrice), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

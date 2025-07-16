@@ -39,4 +39,25 @@ public class SweetService {
         sweetRepository.deleteById(id);
     }
 
+    /**
+     * Search sweets by name (case-insensitive, contains).
+     */
+    public List<Sweet> searchByName(String name) {
+        return sweetRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    /**
+     * Search sweets by category (case-insensitive, contains).
+     */
+    public List<Sweet> searchByCategory(String category) {
+        return sweetRepository.findByCategoryContainingIgnoreCase(category);
+    }
+
+    /**
+     * Search sweets within a given price range.
+     */
+    public List<Sweet> searchByPriceRange(double minPrice, double maxPrice) {
+        return sweetRepository.findByPriceBetween(minPrice, maxPrice);
+    }
+
 }
