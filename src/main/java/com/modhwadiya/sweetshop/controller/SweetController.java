@@ -46,4 +46,18 @@ public class SweetController
         List<Sweet> sweets = sweetService.getAllSweets();
         return new ResponseEntity<>(sweets, HttpStatus.OK);
     }
+
+    /**
+     * Delete a sweet by ID.
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSweet(@PathVariable Long id) {
+        try {
+            sweetService.deleteSweet(id);
+            return new ResponseEntity<>("Sweet deleted successfully.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Sweet not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

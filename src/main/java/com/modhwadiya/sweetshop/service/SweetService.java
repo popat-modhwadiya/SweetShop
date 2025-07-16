@@ -32,5 +32,11 @@ public class SweetService {
         return sweetRepository.findAll();
     }
 
+    /**
+     * Delete a sweet by ID.
+     */
+    public void deleteSweet(Long id) {
+        sweetRepository.deleteById(id);
+    }
 
 }
