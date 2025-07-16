@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sweet Shop Management</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<h1>Sweet Shop Management System</h1>
+
+<!-- Add Sweet -->
+<section>
+    <h2>Add Sweet</h2>
+    <input id="addName" placeholder="Name" />
+    <input id="addCategory" placeholder="Category" />
+    <input id="addPrice" placeholder="Price" type="number" />
+    <input id="addQuantity" placeholder="Quantity" type="number" />
+    <button onclick="addSweet()">Add Sweet</button>
+</section>
+
+<!-- Search Sweet -->
+<!-- Search Sweet -->
+<section>
+    <h2>Search Sweets</h2>
+
+    <!-- Search by Name -->
+    <div>
+        <input id="searchName" placeholder="Search by name" />
+        <button onclick="searchByName()">Search by Name</button>
+    </div>
+
+    <!-- Search by Category -->
+    <div>
+        <input id="searchCategory" placeholder="Search by category" />
+        <button onclick="searchByCategory()">Search by Category</button>
+    </div>
+
+    <!-- Search by Price Range -->
+    <div>
+        <input id="minPrice" placeholder="Min price" type="number" />
+        <input id="maxPrice" placeholder="Max price" type="number" />
+        <button onclick="searchByPriceRange()">Search by Price Range</button>
+    </div>
+
+    <!-- Show All -->
+    <div>
+        <button onclick="loadSweets()">Show All</button>
+    </div>
+</section>
+
+
+<!-- Sweets List -->
+<section>
+    <h2>Available Sweets</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Quantity</th><th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="sweetTable"></tbody>
+    </table>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
