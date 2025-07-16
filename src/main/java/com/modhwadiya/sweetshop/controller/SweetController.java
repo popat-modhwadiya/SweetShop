@@ -5,10 +5,9 @@ import com.modhwadiya.sweetshop.service.SweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Controller for handling Sweet Shop operations.
@@ -37,5 +36,14 @@ public class SweetController
     {
         Sweet createdSweet = sweetService.addSweet(sweet);
         return new ResponseEntity<>(createdSweet, HttpStatus.CREATED);
+    }
+
+    /**
+     * Get list of all sweets.
+     */
+    @GetMapping
+    public ResponseEntity<List<Sweet>> getAllSweets() {
+        List<Sweet> sweets = sweetService.getAllSweets();
+        return new ResponseEntity<>(sweets, HttpStatus.OK);
     }
 }

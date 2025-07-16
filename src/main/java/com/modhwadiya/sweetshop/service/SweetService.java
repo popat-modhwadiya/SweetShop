@@ -25,5 +25,12 @@ public class SweetService {
         return sweetRepository.save(sweet);
     }
 
+    /**
+     * Get all sweets available in the shop.
+     */
+    public List<Sweet> getAllSweets() {
+        return sweetRepository.findAll();
+    }
+
 
 }
