@@ -18,7 +18,12 @@ public class SweetService {
     @Autowired
     private SweetRepository sweetRepository;
 
-
+    /**
+     * Add a new sweet to the shop.
+     */
+    public Sweet addSweet(Sweet sweet) {
+        return sweetRepository.save(sweet);
+    }
 
 
 }

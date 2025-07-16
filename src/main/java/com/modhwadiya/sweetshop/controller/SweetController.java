@@ -22,5 +22,20 @@ public class SweetController
     @Autowired
     private SweetService sweetService;
 
-
+    /**
+     * Add a new sweet.
+     * Example POST JSON:
+     * {
+     * "name": "Rasgulla",
+     * "category": "Milk-Based",
+     * "price": 15.0,
+     * "quantityInStock": 30
+     * }
+     */
+    @PostMapping
+    public ResponseEntity<Sweet> addSweet(@RequestBody Sweet sweet)
+    {
+        Sweet createdSweet = sweetService.addSweet(sweet);
+        return new ResponseEntity<>(createdSweet, HttpStatus.CREATED);
+    }
 }
