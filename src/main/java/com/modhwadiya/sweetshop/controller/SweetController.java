@@ -84,4 +84,46 @@ public class SweetController
         }
     }
 
+    /**
+     * Purchase sweet: decrease stock quantity.
+     * Example POST JSON:
+     * {
+     *   "quantity": 5
+     * }
+     */
+    @PostMapping("/{id}/purchase")
+    public ResponseEntity<?> purchaseSweet(@PathVariable Long id, @RequestBody QuantityRequest request) {
+        try {
+            Sweet updatedSweet = sweetService.purchaseSweet(id, request.getQuantity());
+            return new ResponseEntity<>(updatedSweet, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
+    /**
+     * Simple request body for quantity operations.
+     * Example:
+     * {
+     *   "quantity": 5
+     * }
+     */
+    public static class QuantityRequest {
+        private int quantity;
+
+        public QuantityRequest() {
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
+        }
+    }
+
+
 }

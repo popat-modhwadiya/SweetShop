@@ -60,4 +60,24 @@ public class SweetService {
         return sweetRepository.findByPriceBetween(minPrice, maxPrice);
     }
 
+    /**
+     * Purchase sweets: decrease stock if enough is available.
+     */
+    public Sweet purchaseSweet(Long id, int quantity) throws Exception {
+        Optional<Sweet> optionalSweet = sweetRepository.findById(id);
+
+        if (optionalSweet.isPresent()) {
+            Sweet sweet = optionalSweet.get();
+            if (sweet.getQuantityInStock() >= quantity) {
+                sweet.setQuantityInStock(sweet.getQuantityInStock() - quantity);
+                return sweetRepository.save(sweet);
+            } else {
+                throw new Exception("Not enough stock available!");
+            }
+        } else {
+            throw new Exception("Sweet not found!");
+        }
+    }
+
+
 }
