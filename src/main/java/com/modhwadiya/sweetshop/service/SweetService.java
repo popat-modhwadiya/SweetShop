@@ -1,0 +1,24 @@
+package com.modhwadiya.sweetshop.service;
+
+import com.modhwadiya.sweetshop.model.Sweet;
+import com.modhwadiya.sweetshop.repository.SweetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * Service class for Sweet operations.
+ * Handles business logic for adding, deleting, searching, purchasing and restocking sweets.
+ */
+@Service
+public class SweetService {
+
+    @Autowired
+    private SweetRepository sweetRepository;
+
+
+
+
+}
