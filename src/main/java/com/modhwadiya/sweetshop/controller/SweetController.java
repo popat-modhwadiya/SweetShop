@@ -101,7 +101,22 @@ public class SweetController
         }
     }
 
-
+    /**
+     * Restock sweet: increase stock quantity.
+     * Example POST JSON:
+     * {
+     *   "quantity": 10
+     * }
+     */
+    @PostMapping("/{id}/restock")
+    public ResponseEntity<?> restockSweet(@PathVariable Long id, @RequestBody QuantityRequest request) {
+        try {
+            Sweet updatedSweet = sweetService.restockSweet(id, request.getQuantity());
+            return new ResponseEntity<>(updatedSweet, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Sweet not found.", HttpStatus.NOT_FOUND);
+        }
+    }
 
     /**
      * Simple request body for quantity operations.

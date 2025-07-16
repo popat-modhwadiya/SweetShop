@@ -79,5 +79,19 @@ public class SweetService {
         }
     }
 
+    /**
+     * Restock sweets: increase stock quantity.
+     */
+    public Sweet restockSweet(Long id, int quantity) throws Exception {
+        Optional<Sweet> optionalSweet = sweetRepository.findById(id);
+
+        if (optionalSweet.isPresent()) {
+            Sweet sweet = optionalSweet.get();
+            sweet.setQuantityInStock(sweet.getQuantityInStock() + quantity);
+            return sweetRepository.save(sweet);
+        } else {
+            throw new Exception("Sweet not found!");
+        }
+    }
 
 }
