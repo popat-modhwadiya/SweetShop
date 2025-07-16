@@ -4,6 +4,8 @@ package com.modhwadiya.sweetshop.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.modhwadiya.sweetshop.model.Sweet;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -64,6 +66,32 @@ class SweetControllerTest
 
         mockMvc.perform(delete("/sweets/" + created.getId()))
                 .andExpect(status().isOk());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"Kaju", "Halwa", "Jamun"})
+    void testSearchByName_WithMultipleValues(String name) throws Exception {
+        mockMvc.perform(get("/sweets/search")
+                        .param("name", name))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    void testSearchByCategory() throws Exception {
+        mockMvc.perform(get("/sweets/search")
+                        .param("category", "Nut-Based"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    void testSearchByPriceRange() throws Exception {
+        mockMvc.perform(get("/sweets/search")
+                        .param("minPrice", "5")
+                        .param("maxPrice", "60"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray());
     }
 
 
